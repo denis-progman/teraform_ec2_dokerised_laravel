@@ -12,7 +12,7 @@ resource "aws_default_vpc" "handmade_tests-vpc" {
 data "aws_availability_zones" "availabile_zones" {}
 
 
-resource "aws_default_subnet" "namehandmade_tests-subnet-public1-us-east-1a" {
+resource "aws_default_subnet" "handmade_tests-subnet-public1-us-east-1a" {
   availability_zone = data.aws_availability_zones.availabile_zones.names[0]
 
   tags = {
@@ -72,8 +72,8 @@ data "aws_ami" "amazon_linux_2"{
 
 resource "aws_instance" "ec2_instance" {
     ami = data.aws_ami.amazon_linux_2.id
-    instance_type = "t3-micro"
-    subnet_id = aws_default_subnet.namehandmade_tests-subnet-public1-us-east-1a.id
+    instance_type = "t3.micro"
+    subnet_id = aws_default_subnet.handmade_tests-subnet-public1-us-east-1a.id
     vpc_security_group_ids =  [aws_security_group.ec2_security_group.id]
     key_name = "test-1"
     user_data = file("install_website.sh")
